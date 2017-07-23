@@ -1,3 +1,5 @@
+http://docs.cs50.net/2016/fall/syllabus/cs50.html
+
 Table of Contents
 
 tl;dr
