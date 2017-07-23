@@ -1,0 +1,23 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    Log In
+{% endblock %}
+
+{% block main %}
+    <h1>Quote</h1>
+
+    <form action="{{ url_for('quote') }}" method="post">
+        <fieldset>
+            <div class="form-group">
+                <input autocomplete="off" autofocus class="form-control" name="symbol" placeholder="Symbol" type="text"/>
+            <div class="form-group">
+                <button class="btn btn-default" type="submit">Quote</button>
+            </div>
+        </fieldset>
+    </form>
+    
+    {% if quote %}
+    <p>One share of {{ quote.name }} ({{ quote.symbol }}) is worth USD {{ quote.price }}.</p>
+    {% endif %}
+{% endblock %}

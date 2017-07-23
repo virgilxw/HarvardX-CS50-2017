@@ -1,0 +1,40 @@
+0.  What is pneumonoultramicroscopicsilicovolcanoconiosis?
+
+    An artificial long word said to mean a lung disease caused by inhaling very fine ash and sand dust.
+
+
+1.  According to its man page, what does getrusage do?
+
+    Measures resource usage of a specified programme. Accepts two arguments. The first argument, "who", is a integer that specifies which process to measure CPU usage for; RUSAGE_SELF returns the value for the process which called getrusage, RUSAGE_CHILDREN returns values for all children process of the calling process that are not currently running, while RUSAGE_THREAD returns the value for the calling thread. The second argument, "*usage", points to the propietary struct "rusage" that will store the results of GETRUSAGE.
+    
+    
+2.  Per that same man page, how many members are in a variable of type struct rusage?
+    
+    "struct rusage" has 16 members.
+
+
+3.  Why do you think we pass before and after by reference (instead of by value) to calculate, even though we’re not changing their contents?
+    
+    To reduce burden on the CPU to place large structs on the stack.
+
+
+4.  Explain as precisely as possible, in a paragraph or more, how main goes about reading words from a file. In other words, convince us that you indeed understand how that function’s for loop works.
+
+    Main has X parts. 
+    
+    In the first, variables are initiated and command line arguments are validated to be not empty and in the following format: ""Usage: speller [dictionary] text.". Variables used in benchmarking are initialised - in addition to placeholder structs (before, after) for calculations, doubles that measure the four output values - time_load, time_check, time_size, and time_unload - are initialised. The dictionary is loaded and validated; if there are three command lines arguments, the argv[2] is used as the dictionary; otherwise, the default "DICTIONARY" is used.. If three command line arguments are read, the argv[2] is loaded as the text to be parsed; otherwise, argv[1] is parsed. Benchmarking for time_load takes place.
+    
+    In the second, the text is parsed for checkable words. A for-loop iterates through characters in the text, updating integer C at each run to store the character being parsed. The loop terminates when an EOF character is parsed. The character is tested if it is a letter, apostrophe, or digit. If it is a letter or apostrophe, the letter is added into array "word[index]" and index is iterated, unless the current word length exceeds the longest word in the dictionary, whereby it discards all proceeding letters until a non-alphabetical character and resets the index to zero. If the character is a digit, all proceeding letters until a non-alphabetical character and resets the index to zero. If the character is not a alphabet, apostrophe, or digit, and the index is greater than zero, a new word is found.
+    
+    In the third, the spellcheck is implemented. The "\0" end-of-string character is suffixed unto the word array and the counter for number of words found is increased. if the check() function is called to check whether the word is in the dictionary, and check() is benchmarked to the counter time_check. if the word does not appear in the dictionary, the mispelled word is printed and the misspellings counter is increased. Once the text has finished parsing and the last word has been spellchecked, the fp is checked for errors and is closed
+    
+    In the fourth, the output variables are generated. In a benchmarked process, the size of the dictionary is derieved using the size() function and the dictionary is unloaded. The debug variables are printed.
+    
+
+5.  Why do you think we used fgetc to read each word’s characters one at a time rather than use fscanf with a format string like "%s" to read whole words at a time? Put another way, what problems might arise by relying on fscanf alone?
+    
+    fScanf parses until a whitespace if found, thus may read non-letter characters into the word, ie. fullstops and commas. fscanf is also more susceptible to stack overflow exploits and segmentation faults as the entire text may be loaded into the stack at the same time.
+    
+
+6. Why do you think we declared the parameters for check and load as const (which means "constant")?
+    It forces any bugs to be found at compile-time rather than run-time and prevents the data the pointer is pointing at to be accidently changed.

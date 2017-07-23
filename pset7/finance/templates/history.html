@@ -1,0 +1,35 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    Log In
+{% endblock %}
+
+{% block main %}
+    <h1>History</h1>
+    </br>
+    
+    <div class = display>
+    <div id = overview>
+    <p><b>Username:</b> {{ overview.username }}</p>
+    <p><b>Wallet</b>: {{ overview.wallet }}</p>
+    </div>
+    
+    <table id = breakdown>
+        <thead><tr>
+            <th>Symbol</th>
+            <th>Name</th>
+            <th>Quantity</th>
+            <th>Price</th>
+        </tr></thead>
+    
+    {% for row in hist_output %}
+    <tr>
+        <th>{{ row.symbol  }}</th>
+        <th>{{ row.name  }}</th>
+        <th>{{ row.quantity }}</th>
+        <th>{{ row.price  }}</th>
+    </tr>
+    {% endfor %}
+    </table>
+    </div>
+{% endblock %}

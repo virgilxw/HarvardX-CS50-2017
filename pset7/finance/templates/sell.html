@@ -1,0 +1,59 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    Log In
+{% endblock %}
+
+{% block main %}
+    <h1>Sell</h1>
+    </br>
+    {% if message %}
+    <p>{{ message }}</p>
+    {% endif %}
+    
+    <form action="{{ url_for('sell') }}" method="post">
+        <fieldset>
+            <div class="form-group">
+                <input autocomplete="off" autofocus class="form-control" name="symbol" placeholder="Symbol" type="text"/>
+                <input autocomplete="off" autofocus class="form-control" name="quantity" placeholder="Quantity" type="text"/>
+            <button class="btn btn-default" type="submit">Sell</button>
+            <div class="form-group">
+            </div>
+        </fieldset>
+    </form>
+    
+    
+    <div class = display>
+    <div id = overview>
+    <p><b>Username:</b> {{ overview.username }}</p>
+    <p><b>Assets in stock:</b> {{ overview.assets }}</p>
+    <p><b>Wallet</b>: {{ overview.wallet }}</p>
+    </div>
+    
+    <table id = breakdown>
+        <thead><tr>
+            <th rowspan="2">Symbol</th>
+            <th rowspan="2">Name</th>
+            <th rowspan="2">Quantity</th>
+            <th rowspan="2">Current quote</th>
+            <th rowspan="2">Value of Stocks</th>
+            <th colspan="2">Last Transaction</th>
+        </tr><tr>
+            <th>Quantity Bought</th>
+            <th>Price per share</th>
+        </tr></thead>
+    
+    {% for row in breakdown %}
+    <tr>
+        <th>{{ row.symbol  }}</th>
+        <th>{{ row.Name  }}</th>
+        <th>{{ row.quantity }}</th>
+        <th>{{ row.current_quote  }}</th>
+        <th>{{ row.Stock_Value  }}</th>
+        <th>{{ row.last_transac_qty }}</th>
+        <th>{{ row.last_transac_price }}</th>
+    </tr>
+    {% endfor %}
+    </table>
+    </div>
+{% endblock %}
